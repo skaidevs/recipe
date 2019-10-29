@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:recipe/dummy_data.dart';
+import 'package:recipe/widgets/recipe_item.dart';
 
 class CategoryRecipeScreen extends StatelessWidget {
-  static const routeName = 'category';
+  static const routeName = 'category_recipe';
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class CategoryRecipeScreen extends StatelessWidget {
     final categoryId = routeArgs['id'];
 
     //HERE we go
-    final category =
+    final categoryRecipe =
         DUMMY_DATA.where((r) => r.categories.contains(categoryId)).toList();
 
     print(categoryTitle);
@@ -21,9 +22,15 @@ class CategoryRecipeScreen extends StatelessWidget {
         title: Text(categoryTitle),
       ),
       body: ListView.builder(
-        itemCount: category.length,
+        itemCount: categoryRecipe.length,
         itemBuilder: (context, index) {
-          return Text(category[index].title);
+          return RecipeItem(
+              id: categoryRecipe[index].id,
+              title: categoryRecipe[index].title,
+              imageUrl: categoryRecipe[index].imageUrl,
+              duration: categoryRecipe[index].duration,
+              complexity: categoryRecipe[index].complexity,
+              affordability: categoryRecipe[index].affordability);
         },
       ),
     );
