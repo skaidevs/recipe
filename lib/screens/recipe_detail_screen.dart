@@ -3,6 +3,10 @@ import 'package:recipe/dummy_data.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
   static const routeName = 'recipe_detail';
+  final Function toggleFavorite;
+  final Function isFavorite;
+
+  RecipeDetailScreen(this.toggleFavorite, this.isFavorite);
 
   Widget buildSectionTitle(String title, BuildContext context) {
     return Container(
@@ -55,7 +59,7 @@ class RecipeDetailScreen extends StatelessWidget {
               ListView.builder(
                 itemCount: selectedRecipe.ingredients.length,
                 itemBuilder: (context, index) => Card(
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).primaryColor,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 5.0, horizontal: 10.0),
@@ -87,6 +91,12 @@ class RecipeDetailScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          isFavorite(recipeId) ? Icons.favorite : Icons.favorite_border,
+        ),
+        onPressed: () => toggleFavorite(recipeId),
       ),
     );
   }
